@@ -1,6 +1,6 @@
-#Kindling: A static site generation starterkit using eleventy.js
+# Kindling: A static site generation starterkit using eleventy.js
 
-##How to use:
+## How to use:
 
 `npm install`
 `npm start` to open the site in a browser for local development
