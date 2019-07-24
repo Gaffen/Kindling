@@ -1,7 +1,7 @@
 {
-  "name": "pipa-demo",
+  "name": "kindling",
   "version": "1.0.0",
-  "description": "The PiPA Demo site",
+  "description": "The Kindling static site framework",
   "main": ".eleventy.js",
   "scripts": {
     "build": "webpack --env production && eleventy",

@@ -100,6 +100,8 @@ const build_site = debounce(
   200
 );
 
+build_site();
+
 sync.init(
   {
     server: path.join(__dirname, "build"),
@@ -157,5 +159,3 @@ const compiler = webpack(config(process.env.NODE_ENV));
 compiler.watch({}, err => {
   sync.reload();
 });
-
-build_site();
