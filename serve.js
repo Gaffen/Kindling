@@ -55,6 +55,60 @@ const kill_child = pid =>
     });
   });
 
+function startServer() {
+  sync.init(
+    {
+      server: path.join(__dirname, "build"),
+      cors: true,
+      open: true,
+      logFileChanges: true,
+      plugins: ["bs-fullscreen-message"],
+      watchOptions: {
+        awaitWriteFinish: {
+          stabilityThreshold: 500,
+          pollInterval: 100
+        }
+      },
+      files: [
+        {
+          match: [
+            path.join(__dirname, "layouts", "**", "*"),
+            path.join(__dirname, "src", "content", "**", "*")
+          ],
+          fn: (event, file) => {
+            debug(`File changed: ${file}`);
+            build_site(false);
+          }
+        }
+        // {
+        //   match: [
+        //     path.join(__dirname, "src", "js", "**", "*"),
+        //     path.join(__dirname, "src", "scss", "**", "*"),
+        //     path.join(__dirname, "src", "svg", "**", "*")
+        //   ],
+        //   fn: () => build_site(true, false)
+        // }
+      ],
+      middleware: [
+        (req, res, next) => {
+          if (!gz) return;
+          const gzip = compress();
+          gzip(req, res, next);
+        }
+      ]
+    },
+    (err, bs) => {
+      if (err) {
+        error(err);
+      }
+      bs.addMiddleware("*", (req, res) => {
+        res.write("404 mayne");
+        res.end();
+      });
+    }
+  );
+}
+
 // Run build command
 const build_site = debounce(
   (build_assets = true, build_site = true, file_filter = "") => {
@@ -87,6 +141,10 @@ const build_site = debounce(
         info("Build Finished");
       }
 
+      if (!sync.active) {
+        startServer();
+      }
+
       child = void 0;
       sync.reload();
     }).catch(err => {
@@ -101,58 +159,6 @@ const build_site = debounce(
 );
 
 build_site();
-
-sync.init(
-  {
-    server: path.join(__dirname, "build"),
-    cors: true,
-    open: true,
-    logFileChanges: true,
-    plugins: ["bs-fullscreen-message"],
-    watchOptions: {
-      awaitWriteFinish: {
-        stabilityThreshold: 500,
-        pollInterval: 100
-      }
-    },
-    files: [
-      {
-        match: [
-          path.join(__dirname, "layouts", "**", "*"),
-          path.join(__dirname, "src", "content", "**", "*")
-        ],
-        fn: (event, file) => {
-          debug(`File changed: ${file}`);
-          build_site(false);
-        }
-      }
-      // {
-      //   match: [
-      //     path.join(__dirname, "src", "js", "**", "*"),
-      //     path.join(__dirname, "src", "scss", "**", "*"),
-      //     path.join(__dirname, "src", "svg", "**", "*")
-      //   ],
-      //   fn: () => build_site(true, false)
-      // }
-    ],
-    middleware: [
-      (req, res, next) => {
-        if (!gz) return;
-        const gzip = compress();
-        gzip(req, res, next);
-      }
-    ]
-  },
-  (err, bs) => {
-    if (err) {
-      error(err);
-    }
-    bs.addMiddleware("*", (req, res) => {
-      res.write("404 mayne");
-      res.end();
-    });
-  }
-);
 
 const compiler = webpack(config(process.env.NODE_ENV));
 
