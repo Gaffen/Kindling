@@ -2,10 +2,10 @@
 
 ## How to use:
 
-`npm install`
-`npm start` to open the site in a browser for local development
-`npm run generate` to compile modernizr and svg sprites (if you need that)
-`npm run build` to export the site for upload to the `/build` directory
+`npm install` \
+`npm start` to open the site in a browser for local development \
+`npm run generate` to compile modernizr and svg sprites (if you need that) \
+`npm run build` to export the site for upload to the `/build` directory \
 
 If you want to use an SVG spritesheet, the `spritesheet` script will compole all svg's contained in `/src/svg`
 
