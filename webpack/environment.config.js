@@ -62,7 +62,7 @@ module.exports = (config, env, target) => {
   config.externals = {
     window: "window"
   };
-  config.optimization = { minimize: !isProduction(env) };
+  config.optimization = { minimize: isProduction(env) };
 
   return config;
 };

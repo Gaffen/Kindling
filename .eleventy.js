@@ -56,8 +56,8 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPlugin(pluginYamldata);
 
-  eleventyConfig.addPassthroughCopy("src/img");
-  eleventyConfig.addPassthroughCopy("src/favicon");
+  eleventyConfig.addPassthroughCopy("img");
+  eleventyConfig.addPassthroughCopy("favicon");
 
   return {
     dir: {

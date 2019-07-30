@@ -8,4 +8,5 @@ src/content/posts/*
 !src/content/posts/.gitkeep
 node_modules
 /assets/*
+/src/js/modernizr.js
 /layouts/partials/sprite.svg
