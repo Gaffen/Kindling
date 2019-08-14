@@ -1,6 +1,5 @@
 const path = require("path");
 const fs = require("fs");
-const babel = require("@babel/core");
 const manifest = require("./data/manifest.json");
 const pluginYamldata = require("eleventy-plugin-yamldata");
 
