@@ -3,7 +3,6 @@ const fs = require("fs");
 const babel = require("@babel/core");
 const manifest = require("./data/manifest.json");
 const pluginYamldata = require("eleventy-plugin-yamldata");
-const Jimp = require("jimp");
 
 const Nunjucks = require("nunjucks");
 const nunjucksDate = require("nunjucks-date");
