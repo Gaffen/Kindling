@@ -12,16 +12,13 @@ module.exports = env => {
     entry: {
       main: ["./src/js/main.js", "./src/scss/styles.scss"]
     },
-    mode: env,
+    mode: env.production ? "production" : "development",
     output: {
       path: assetsPath,
-      filename: env == "development" ? "[name].js" : "[name]-[hash].js",
+      filename: env.production ? "[name].js" : "[name]-[hash].js",
       chunkFilename:
-        env == "development" ? "[name].js" : "[name]-[chunkhash].js",
+        env.production ? "[name].js" : "[name]-[chunkhash].js",
       publicPath: "/assets/"
-    },
-    optimization: {
-      minimize: env === "production"
     },
     module: {
       rules: getLoaders()

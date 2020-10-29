@@ -23,15 +23,7 @@ module.exports = function() {
           url: false
         }
       },
-      {
-        loader: "postcss-loader",
-        options: {
-          plugins: function(e) {
-            return [autoprefixer(["last 2 version", "> 1%", "ie 9", "ie 8"])];
-          },
-          sourceMap: !production
-        }
-      },
+      "postcss-loader",
       {
         loader: "sass-loader", // compiles Sass to CSS
         options: {
@@ -58,7 +50,7 @@ module.exports = function() {
     },
     {
       test: /\.jsx?$/,
-      exclude: /(node_modules|bower_components)/,
+      exclude: /(node_modules|bower_components|src\/js\/modernizr\.js)/,
       use: "babel-loader"
     },
     {

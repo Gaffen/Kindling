@@ -1,9 +1,9 @@
-const OptimizeJsPlugin = require("optimize-js-plugin");
 const resolvers = require("./resolvers.js");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const url = require("url");
+const TerserPlugin = require("terser-webpack-plugin");
 
 const path = require("path");
 const webpack = require("webpack");
@@ -19,10 +19,6 @@ function getPlugins(env) {
   return [
     new webpack.IgnorePlugin(/\.\/dev/, /\/config$/),
     new CleanWebpackPlugin(),
-    new OptimizeJsPlugin({
-      sourceMap: !isProduction(env)
-    }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new MiniCssExtractPlugin({
       filename: env == "development" ? "[name].css" : "[name]-[chunkhash].css",
       chunkFilename: "[id].css"
@@ -53,7 +49,7 @@ function getPlugins(env) {
 
 module.exports = (config, env, target) => {
   if (!isProduction(env)) {
-    config.devtool = "cheap-module-eval-source-map";
+    config.devtool = "eval-source-map";
   } else {
     // config.devtool = "hidden-source-map";
   }
@@ -62,7 +58,10 @@ module.exports = (config, env, target) => {
   config.externals = {
     window: "window"
   };
-  config.optimization = { minimize: isProduction(env) };
+  config.optimization = { 
+    minimize: isProduction(env),
+    minimizer: [new TerserPlugin()] 
+  };
 
   return config;
 };
