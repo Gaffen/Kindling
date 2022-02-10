@@ -37,7 +37,7 @@
     "markdown-it-link-attributes": "^3.0.0",
     "mini-css-extract-plugin": "^1.2.1",
     "modernizr": "^3.11.3",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "nunjucks-date": "^1.4.0",
     "postcss": "^8.1.4",
     "postcss-loader": "^4.0.4",
