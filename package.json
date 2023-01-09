@@ -15,7 +15,7 @@
   "author": "Matthew Gaffen",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.1",
+    "@11ty/eleventy": "^1.0.2",
     "@babel/core": "^7.8.6",
     "@babel/node": "^7.8.4",
     "@babel/preset-env": "^7.9.0",
